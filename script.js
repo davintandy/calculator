@@ -1,30 +1,45 @@
-function add(a, b) {
-    return a + b;
+const display = document.getElementById("display");
+const numbers = document.querySelectorAll(".number");
+
+function updateDisplay(event) {
+    const number = event.target.textContent;
+
+    if (number !== "." || !display.value.includes(".")) {
+        display.value += event.target.textContent;
+    }
 }
 
-function subtract(a, b) {
-    return a - b;
+function add(num1, num2) {
+    return num1 + num2;
 }
 
-function multiply(a, b) {
-    return a * b;
+function subtract(num1, num2) {
+    return num1 - num2;
 }
 
-function divide(a, b) {
-    return a / b;
+function multiply(num1, num2) {
+    return num1 * num2;
 }
 
-function operate(a, b, operator) {
+function divide(num1, num2) {
+    return num1 / num2;
+}
+
+function operate(num1, num2, operator) {
     if (operator === "+") {
-        return add(a, b);
+        return add(num1, num2);
     }
     if (operator === "-") {
-        return subtract(a, b);
+        return subtract(num1, num2);
     }
     if (operator === "*") {
-        return multiply(a, b);
+        return multiply(num1, num2);
     }
     if (operator === "/") {
-        return divide(a, b);
+        return divide(num1, num2);
     }
 }
+
+numbers.forEach(number => {
+    number.addEventListener("click", updateDisplay);
+})
