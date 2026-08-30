@@ -1,6 +1,7 @@
 const display = document.getElementById("display");
 const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
+const equal = document.getElementById("equal");
 
 let firstNum = null;
 let currentOperator = null;
@@ -13,6 +14,10 @@ function updateDisplay(event) {
     if (operatorPressed) {
         display.value = "";
         operatorPressed = false;
+
+        if (currentOperator === null) {
+            firstNum = null;
+        }
     }
 
     if (number !== "." || !display.value.includes(".")) {
@@ -59,6 +64,11 @@ function handleOperator(event) {
         return
     }
 
+    if (operatorPressed) {
+        currentOperator = selectedOperator;
+        return;
+    }
+
     if (firstNum === null) {
         firstNum = currentNum;
     } else if (currentOperator) {
@@ -71,6 +81,23 @@ function handleOperator(event) {
     operatorPressed = true;
 }
 
+function handleEqual(event) {
+    if (firstNum === null || currentOperator === null || operatorPressed) {
+        return;
+    }
+
+    const currentNum = parseFloat(display.value);
+    if (isNaN(currentNum)) {
+        return;
+    }
+
+    const result = operate(firstNum, currentNum, currentOperator);
+    display.value = result;
+    firstNum = result;
+    currentOperator = null;
+    operatorPressed = true;
+}
+
 numbers.forEach(number => {
     number.addEventListener("click", updateDisplay);
 })
@@ -78,3 +105,5 @@ numbers.forEach(number => {
 operators.forEach(operator => {
     operator.addEventListener("click", handleOperator);
 })
+
+equal.addEventListener("click", handleEqual);
