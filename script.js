@@ -2,6 +2,8 @@ const display = document.getElementById("display");
 const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
 const equal = document.getElementById("equal");
+const clear = document.getElementById("clear");
+const backspace = document.getElementById("backspace");
 
 let firstNum = null;
 let currentOperator = null;
@@ -98,6 +100,21 @@ function handleEqual(event) {
     operatorPressed = true;
 }
 
+function handleClear() {
+    firstNum = null;
+    currentOperator = null;
+    operatorPressed = false;
+    display.value = "";
+}
+
+function handleBackspace() {
+    if (operatorPressed) {
+        return;
+    }
+
+    display.value = display.value.slice(0, -1);
+}
+
 numbers.forEach(number => {
     number.addEventListener("click", updateDisplay);
 })
@@ -107,3 +124,5 @@ operators.forEach(operator => {
 })
 
 equal.addEventListener("click", handleEqual);
+clear.addEventListener("click", handleClear);
+backspace.addEventListener("click", handleBackspace);
