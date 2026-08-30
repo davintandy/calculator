@@ -4,6 +4,7 @@ const operators = document.querySelectorAll(".operator");
 const equal = document.getElementById("equal");
 const clear = document.getElementById("clear");
 const backspace = document.getElementById("backspace");
+const percent = document.getElementById("percent");
 
 let firstNum = null;
 let currentOperator = null;
@@ -115,6 +116,23 @@ function handleBackspace() {
     display.value = display.value.slice(0, -1);
 }
 
+function handlePercent() {
+    const currentNum = parseFloat(display.value);
+    if (isNaN(currentNum)) {
+        return;
+    }
+
+    let result;
+    if (firstNum !== null && currentOperator !== null) {
+        result = (firstNum * currentNum) / 100;
+    } else {
+        result = currentNum / 100;
+    }
+
+    display.value = result;
+}
+
+
 numbers.forEach(number => {
     number.addEventListener("click", updateDisplay);
 })
@@ -126,3 +144,4 @@ operators.forEach(operator => {
 equal.addEventListener("click", handleEqual);
 clear.addEventListener("click", handleClear);
 backspace.addEventListener("click", handleBackspace);
+percent.addEventListener("click", handlePercent);
