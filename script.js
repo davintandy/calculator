@@ -23,6 +23,11 @@ function updateDisplay(event) {
         }
     }
 
+    const digitsCount = display.value.length;
+    if (digitsCount >= 15) {
+        return;
+    }
+
     if (number !== "." || !display.value.includes(".")) {
         display.value += event.target.textContent;
     }
