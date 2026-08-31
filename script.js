@@ -137,6 +137,36 @@ function handlePercent() {
     display.value = result;
 }
 
+function handleKeyboard(event) {
+    const key = event.key;
+
+    if ((key >= "0" && key <= "9") || key === ".") {
+        updateDisplay({ target: { textContent: key } });
+    }
+
+    if (key === "+" || key === "-") {
+        handleOperator({ target: { textContent: key } });
+    } else if (key === "*") {
+        handleOperator({ target: { textContent: "×" } });
+    } else if (key === "/") {
+        handleOperator({ target: { textContent: "÷" } });
+    }
+
+    if (key === "Enter" || key === "=") {
+        handleEqual();
+    }
+
+    if (key === "Backspace") {
+        handleBackspace();
+    }
+    if (key === "Delete") {
+        handleClear();
+    }
+    if (key === "%") {
+        handlePercent();
+    }
+}
+
 
 numbers.forEach(number => {
     number.addEventListener("click", updateDisplay);
@@ -150,3 +180,4 @@ equal.addEventListener("click", handleEqual);
 clear.addEventListener("click", handleClear);
 backspace.addEventListener("click", handleBackspace);
 percent.addEventListener("click", handlePercent);
+window.addEventListener("keydown", handleKeyboard)
